@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Link
+  Link, NavLink
 } from "react-router-dom";
 
 import './styles/Header.css'
@@ -12,10 +12,10 @@ class Header extends React.Component {
         <nav className='menu' >
           <ul className='menu-list' >
             <li className='menu-item' >
-              <Link to='/'>Accueil</Link>
+              <NavLink exact to='/' activeClassName="isActive"  >Accueil</NavLink>
             </li>
             <li className='menu-item' >
-              <Link to='/restaurant'>Restaurant</Link>
+              <NavLink to='/restaurant' activeClassName="isActive"  >Restaurant</NavLink>
             </li>
           </ul>
         </nav>
