@@ -21,6 +21,9 @@ a{
 .menu-item:hover{
   transform: scale(0.95); 
 }
-a:hover{
+/* a:hover{
+  color: #db8787;
+} */
+.isActive{
   color: #db8787;
 }
