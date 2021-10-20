@@ -1,21 +1,24 @@
-import React from 'react';
+import React from 'react'
 import {
-  Link, NavLink
-} from "react-router-dom";
+  NavLink
+} from 'react-router-dom'
 
 import './styles/Header.css'
 
 class Header extends React.Component {
-  render() {
+  render () {
     return (
       <div>
-        <nav className='menu' >
-          <ul className='menu-list' >
-            <li className='menu-item' >
-              <NavLink exact to='/' activeClassName="isActive"  >Accueil</NavLink>
+        <nav className='menu'>
+          <ul className='menu-list'>
+            <li className='menu-item'>
+              <NavLink exact to='/' activeClassName='isActive'>Accueil</NavLink>
             </li>
-            <li className='menu-item' >
-              <NavLink to='/restaurant' activeClassName="isActive"  >Restaurant</NavLink>
+            <li className='menu-item'>
+              <NavLink to='/restaurant' activeClassName='isActive'>Restaurant</NavLink>
+            </li>
+            <li className='menu-item'>
+              <NavLink to='/auth' activeClassName='isActive'>Auth</NavLink>
             </li>
           </ul>
         </nav>
@@ -24,4 +27,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default Header

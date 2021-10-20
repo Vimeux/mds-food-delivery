@@ -1,0 +1,7 @@
+.register {
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.register:hover{
+  color: #db8787;
+}
