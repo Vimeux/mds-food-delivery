@@ -13,9 +13,7 @@ class Restaurant extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(() => {
       this.getData()
-    }, 500)
   }
 
   getData = async () => {
@@ -24,9 +22,7 @@ class Restaurant extends React.Component {
     this.setState({ restaurants })
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer)
-  }
+  
 
   render() {
     return (

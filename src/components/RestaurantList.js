@@ -1,12 +1,12 @@
-import React from 'react';
-import Restaurants from './Restaurants';
+import React from 'react'
+import Restaurants from './Restaurants'
 
 import './styles/Restaurants.css'
 
 class RestaurantList extends React.Component {
-  render() {
+  render () {
     if (!this.props.restaurants || this.props.restaurants.lenght < 1) {
-      return(
+      return (
         <div>
           <p>Aucune Notes</p>
         </div>
@@ -22,4 +22,4 @@ class RestaurantList extends React.Component {
   }
 }
 
-export default RestaurantList;
+export default RestaurantList
