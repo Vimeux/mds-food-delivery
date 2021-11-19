@@ -19,19 +19,9 @@ const api = axios.create({
 const login = async (credentials) => {
   try {
     const response = await api.post('/auth/login', credentials)
-    if (response.data && response.data.token) {
-      window.localStorage.setItem('token', response.data.token)
-    }
-    return {
-      error: false,
-      data: response.data
-    }
+    return response.data
   } catch (error) {
-    console.error(error)
-    return {
-      error: error,
-      data: null
-    }
+    throw new Error(error.message)
   }
 }
 
@@ -58,7 +48,15 @@ const register = async (registerInfos) => {
 const getRestaurants = async () => {
   try {
     const response = await api.get('/restaurants')
-    console.log(response.data)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const getDishesByRestaurantId = async (restaurantid) => {
+  try {
+    const response = await api.get(`/dishes?id=${restaurantid}`)
     return response.data
   } catch (e) {
     console.log(e)
@@ -81,9 +79,33 @@ const getProfile = async () => {
   }
 }
 
+const createPaymentSession = async (cart, formData) => {
+  try {
+    const response = await api.post('/payment/create-session', { order: { cart, formData } })
+    console.log(JSON.stringify(response.data))
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const createOrder = async (user, cart) => {
+  try {
+    // on recompose un tableau contenant les ID des plats
+    const _cart = cart.map(item => item.dish._id)
+    const response = await api.post('/order', { user, cart: _cart })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   register,
   login,
   getProfile,
-  getRestaurants
+  getRestaurants,
+  getDishesByRestaurantId,
+  createPaymentSession,
+  createOrder
 }

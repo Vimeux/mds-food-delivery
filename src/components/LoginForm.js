@@ -47,7 +47,7 @@ function LoginForm ({ submit, error }) {
         error &&
         (
           <div>
-            <h4>Indentifiants invalides</h4>
+            <h4>{JSON.stringify(error)}</h4>
           </div>
         )
       }

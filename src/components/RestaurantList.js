@@ -1,21 +1,22 @@
 import React from 'react'
-import Restaurants from './Restaurants'
+import RestaurantsListItem from './RestaurantsListItem'
 
 import './styles/Restaurants.css'
 
 class RestaurantList extends React.Component {
   render () {
-    if (!this.props.restaurants || this.props.restaurants.lenght < 1) {
+    const { restaurants } = this.props
+    if (!restaurants) {
       return (
         <div>
-          <p>Aucune Notes</p>
+          <p>Aucune Restaurants</p>
         </div>
       )
     }
     return (
       <div className='restaurant-list'>
-        {this.props.restaurants.map((restaurant) => {
-          return <Restaurants {... this.props} key={restaurant._id} restaurant={restaurant} />
+        {restaurants.map((restaurant) => {
+          return <RestaurantsListItem {... this.props} key={restaurant._id} restaurant={restaurant} />
         })}
       </div>
     )

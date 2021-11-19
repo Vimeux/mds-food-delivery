@@ -6,24 +6,25 @@ import LoginForm from '../components/LoginForm'
 import RegisterForm from '../components/RegisterForm'
 import UserInfos from '../components/UserInfos'
 
-import { getProfile, login, register } from '../services/api'
+import { getProfile, register } from '../services/api'
+
+import { loginUser, useAuth, actionType } from '../contexts/AuthContext'
 
 // nouvelle méthode
 function Auth () {
   // Initalisation des états locaux
-
-  const [error, setError] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isRegister, setIsRegister] = useState(false)
   const [profil, setProfil] = useState(null)
+  const { dispatch, state: { error, user, loading } } = useAuth()
 
-  // Applelé à chaque montage dans le DOM
   useEffect(() => {
-    const token = window.localStorage.getItem('token')
-    if (token) {
+    if (user) {
       setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false)
     }
-  }, [])
+  }, [user])
 
   // Soumission du formulaire
   const handleSubmit = async (infos) => {
@@ -32,18 +33,7 @@ function Auth () {
       data = await register(infos)
     } else {
       // Appel de la fonction d'API login
-      data = await login(infos)
-    }
-    // Gestion des Erreurs
-    if (data.error) {
-      setError(data.error)
-    } else {
-      setError(null)
-    }
-    // affichage des données
-    const token = window.localStorage.getItem('token')
-    if (token) {
-      setIsLoggedIn(true)
+      await loginUser(infos, dispatch)
     }
   }
 
@@ -53,8 +43,9 @@ function Auth () {
   }
 
   const logout = () => {
-    setIsLoggedIn(false)
-    window.localStorage.removeItem('token')
+    dispatch({
+      type: actionType.LOGOUT
+    })
   }
 
   return (

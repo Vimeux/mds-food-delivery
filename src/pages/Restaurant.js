@@ -1,39 +1,34 @@
-import React from 'react';
-import RestaurantList from '../components/RestaurantList';
-import { getRestaurants } from '../services/api';
+/**
+ * Créer une page restaurant qui affiche les détails d'un restaurant
+ * La page doit également afficher la liste des plats (Dish)
+ *  - Créer un composant liste de plats (DishList)
+ *  - Créer Un composant d'élément de liste de plat (DishListItem)
+ *  - Créer l'appel d'api pour récupérer les plats d'un restaurant
+ */
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import DishesList from '../components/DishesList'
+import { getDishesByRestaurantId } from '../services/api'
 
+function Restaurant () {
+  const [dishes, setDishes] = useState([])
+  const { id } = useParams()
 
-
-class Restaurant extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurants: []
-    };
+  const getData = async () => {
+    const dishes = await getDishesByRestaurantId(id)
+    setDishes(dishes)
   }
 
-  componentDidMount() {
-      this.getData()
-  }
+  useEffect(() => {
+    getData()
+  }, [])
 
-  getData = async () => {
-    const restaurants = await getRestaurants()
-    console.log(restaurants)
-    this.setState({ restaurants })
-  }
-
-  
-
-  render() {
-    return (
-      <div>
-        <h1>Restaurant</h1>
-        <RestaurantList 
-          restaurants={this.state.restaurants}
-        />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h1>Restaurant : {id}</h1>
+      <DishesList dishes={dishes} />
+    </div>
+  )
 }
 
-export default Restaurant;
+export default Restaurant
